@@ -1,8 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-
-const autoprefixer = require('autoprefixer');
 
 const overrideBrowserslist = ['ie >= 8', '> 1%', 'last 15 version'];
 
@@ -11,7 +10,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        // test: /\.js?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -25,15 +25,12 @@ module.exports = {
       },
       {
         test: /\.module\.s(a|c)ss$/,
-        use: [
+        loader: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: "[name]__[local]___[hash:base64:5]",
-              },
-              localsConvention: 'camelCase',
+              modules: true,
               sourceMap: isDevelopment
             }
           },
@@ -51,7 +48,7 @@ module.exports = {
                   overrideBrowserslist
                 })
               ],
-              sourceMap: true
+              sourceMap: isDevelopment
             }
           }
         ]
@@ -61,7 +58,10 @@ module.exports = {
         exclude: /\.module.(s(a|c)ss)$/,
         loader: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: { sourceMap: isDevelopment },
+          },
           {
             loader: 'sass-loader',
             options: {
@@ -79,6 +79,29 @@ module.exports = {
               sourceMap: isDevelopment
             }
           }
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets/images',
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets/images',
+            }
+          }
+         
         ]
       }
     ]

@@ -1,20 +1,19 @@
+import axios from 'axios';
 import { fetchProductsPending, fetchProductsSuccess, fetchProductsError } from '../store/actions/products';
 
-function fetchProducts () {
-  return dispatch => {
-    dispatch(fetchProductsPending());
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(res => {
-        if (res.error) {
-          throw (res.error);
-        }
-        dispatch(fetchProductsSuccess(res));
-        return res;
-      })
-      .catch(error => {
-        dispatch(fetchProductsError(error));
-      })
+const fetchProducts = () => async dispatch => {
+
+  dispatch(fetchProductsPending());
+  
+  const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+  const {data} = response;
+  try {
+    if (response.error) {
+      throw (response.error);
+    }
+    dispatch(fetchProductsSuccess(data));
+  } catch (error) {
+    dispatch(fetchProductsError(error));
   }
 }
 

@@ -3,6 +3,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
+process.env.NODE_ENV = 'development'
+
 const baseConfig = require('./webpack.config.base');
 
 module.exports = merge(baseConfig, {
@@ -16,7 +18,7 @@ module.exports = merge(baseConfig, {
 
   plugins: [
     new HtmlWebPackPlugin({
-      template: './index.html'
+      template: './public/index.html'
     }),
     new webpack.HotModuleReplacementPlugin()
   ],

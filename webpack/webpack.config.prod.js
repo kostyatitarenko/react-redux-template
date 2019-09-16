@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+process.env.NODE_ENV = 'production'
 
 const baseConfig = require('./webpack.config.base');
 
@@ -13,7 +14,7 @@ module.exports = merge(baseConfig, {
   entry: './src/index.js',
   output: {
     filename: 'bundle.[chunkhash].js',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, '../build'),
     publicPath: '/'
   },
   optimization: {
@@ -31,17 +32,17 @@ module.exports = merge(baseConfig, {
     ]
   },
   plugins: [
-    new CompressionPlugin(),
     new HtmlWebPackPlugin({
-      template: './index.html'
+      template: './public/index.html'
     }),
     new CleanWebpackPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    })
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production')
+    //   }
+    // })
   ],
 
-  devtool: 'inline-source-map'
+  // devtool: 'inline-source-map'
+  devtool:false
 });
