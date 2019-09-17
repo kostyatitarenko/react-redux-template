@@ -3,28 +3,32 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import routes from './routes';
-import Home from './pages/Home';
-import About from './pages/About';
-import NotFound from './pages/NotFound';
-
+import Menu from './components/Menu';
 import './styles.scss';
 
 const App = () => {
+  const routesComponents = routes.map(route => {
+    return (
+      <Route
+        path={route.url}
+        component={route.component}
+        exact={route.exact}
+        key={route.url}
+      />
+    );
+  });
   return (
     <Provider store={store}>
       <Router>
-        <Switch>
-          <Route path={routes.Home} component={Home} exact />
-          <Route path={routes.About} component={About} />
-          <Route component={NotFound} />
-        </Switch>
+        <Menu />
+        <Switch>{routesComponents}</Switch>
       </Router>
     </Provider>
   );
-}
+};
 
 App.defaultProps = {
   route: null
-}
+};
 
 export default App;

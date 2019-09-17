@@ -1,25 +1,38 @@
 {
   "parser": "babel-eslint",
-  "env": {
-    "node": true,
-    "browser": true,
-    "es6": true
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["react", "jsx-a11y", "import", "react-hooks"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "es6": true,
+    "jest": true
+  },
   "rules": {
-    "no-shadow": "off",
-    "strict": 0,
+    "indent": ["error", 2],
+    "space-before-function-paren": "off",
+    "react/prefer-stateless-function": "warn",
+    "react/jsx-one-expression-per-line": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/prefer-stateless-function": 0,
-    "react/prop-types": 0,
-    "jsx-a11y/anchor-is-valid": 0,
-    "react/no-unescaped-entities": 0,
-    "no-console": 0,
-    "no-use-before-define": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "import/prefer-default-export": 0,
-    "global-require": 0,
-    "linebreak-style": [0, "error", "windows"]
+    "linebreak-style": "off",
+    "global-require": "off",
+    "semi": "warn",
+    "arrow-body-style": "off",
+    "no-multiple-empty-lines": ["warn", { "max": 1 }],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTaggedTemplates": true
+      }
+    ],
+    "no-underscore-dangle": [2, { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }]
   }
 }
