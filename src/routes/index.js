@@ -1,6 +1,8 @@
-import Home from '../pages/Home';
-import About from '../pages/About';
-import NotFound from '../pages/NotFound';
+import Home from '~p/Home';
+import About from '~p/About';
+import Products from '~p/Products';
+import ProductItem from '~p/ProductItem';
+import NotFound from '~p/NotFound';
 
 const routes = [
   {
@@ -16,6 +18,18 @@ const routes = [
     exact: true
   },
   {
+    name: 'products',
+    url: '/products',
+    component: Products,
+    exact: true
+  },
+  {
+    name: 'productItem',
+    url: '/products/:id',
+    component: ProductItem,
+    exact: true
+  },
+  {
     url: '*',
     component: NotFound
   }
@@ -23,8 +37,23 @@ const routes = [
 
 const routesMap = {};
 routes.forEach(route => {
-  routesMap[route.name] = route.url;
+  if (route.hasOwnProperty('name')) {
+    routesMap[route.name] = route.url;
+  }
 });
 
+const urlBuilder = function(name, params) {
+  if (!routesMap.hasOwnProperty(name)) {
+    return null;
+  }
+  let url = routesMap[name];
+
+  for (let key in params) {
+    url = url.replace(`:${key}`, params[key]);
+  }
+
+  return url;
+};
+
 export default routes;
-export { routesMap };
+export { routesMap, urlBuilder };

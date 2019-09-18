@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { urlBuilder } from '~/routes';
 
 const List = ({ items }) => {
   return (
@@ -6,12 +8,12 @@ const List = ({ items }) => {
       {items.map(({ id, title }) => {
         return (
           <li className="list-item" key={id}>
-            {title}
+            <Link to={urlBuilder('productItem', {id})}>{title}</Link>
           </li>
         );
       })}
     </ul>
   );
-}
+};
 
 export default List;

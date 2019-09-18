@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
-import routes from './routes';
-import Menu from './components/Menu';
+import store from '~/store';
+import routes from '~/routes';
+import Menu from '~cm/Menu';
 import './styles.scss';
 
 const App = () => {

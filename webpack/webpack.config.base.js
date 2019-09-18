@@ -1,3 +1,4 @@
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 
@@ -113,6 +114,13 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.scss']
+    extensions: ['.js', '.jsx', '.scss'],
+    alias: {
+      '~': path.resolve(__dirname, '../src'),
+      '~cm': path.resolve(__dirname, '../src/components'),
+      '~cn': path.resolve(__dirname, '../src/containers'),
+      '~p': path.resolve(__dirname, '../src/pages'),
+      '~s': path.resolve(__dirname, '../src/store')
+    }
   }
 };

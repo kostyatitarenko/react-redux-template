@@ -2,12 +2,16 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import fetchProductsAction from '../api/products';
+import fetchProductsAction from '~/api/products';
 
-import { getProductsError, getProducts, getProductsPending } from '../store/reducers/products';
+import {
+  getProductsError,
+  getProducts,
+  getProductsPending
+} from '~s/reducers/products';
 
-import Spinner from '../components/Spiner';
-import List from '../components/List'
+import Spinner from '~cm/Spiner';
+import List from '~cm/List';
 
 // class Products extends Component {
 
@@ -36,34 +40,36 @@ import List from '../components/List'
 // }
 
 const Products = ({ fetchProducts, products, pending, error }) => {
-
   useEffect(() => {
     if (products.length === 0) {
-      fetchProducts()
+      fetchProducts();
     }
   }, []);
 
-  if (pending) return <Spinner />
-
+  if (pending) return <Spinner />;
+  
   return (
-    <div className='product-list-wrapper'>
-      {error && <span className='product-list-error'>{error}</span>}
+    <div className="product-list-wrapper">
+      {error && <span className="product-list-error">{error}</span>}
       <List items={products} />
       <Spinner />
     </div>
-  )
-
-}
+  );
+};
 
 const mapStateToProps = state => ({
   error: getProductsError(state.products),
   products: getProducts(state.products),
   pending: getProductsPending(state.products)
-})
+});
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchProducts: fetchProductsAction
-}, dispatch)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchProducts: fetchProductsAction
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
